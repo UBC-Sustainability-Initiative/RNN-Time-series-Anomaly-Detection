@@ -190,6 +190,7 @@ with open(str(nyc_taxi_raw_path),'r') as f:
                             14700 < i < 14800 \
                           else tokens.append(0)
         labeled_data.append(tokens)
+        
 nyc_taxi_train_path = nyc_taxi_raw_path.parent.parent.joinpath('labeled','train',nyc_taxi_raw_path.name).with_suffix('.pkl')
 nyc_taxi_train_path.parent.mkdir(parents=True, exist_ok=True)
 with open(str(nyc_taxi_train_path),'wb') as pkl:
@@ -199,3 +200,58 @@ nyc_taxi_test_path = nyc_taxi_raw_path.parent.parent.joinpath('labeled','test',n
 nyc_taxi_test_path.parent.mkdir(parents=True, exist_ok=True)
 with open(str(nyc_taxi_test_path),'wb') as pkl:
     pickle.dump(labeled_data[13104:], pkl)
+    
+indoor_cirs_raw_path = Path('dataset/cirs_indoor_temp/raw/indoor_temp_cirs.csv')
+labeled_data = []
+with open(str(indoor_cirs_raw_path),'r') as f:
+    for i, line in enumerate(f):
+        tokens = [float(token) for token in line.strip().split(',')[1:]] 
+        tokens.append(1) if 177 < i < 139 or \
+                            4759 < i < 4770 or \
+                            5324 < i < 5335 or \
+                            5699 < i < 5762 or \
+                            5980 < i < 6004 or \
+                            6507 < i < 6531 or \
+                            6181 < i < 6198 or \
+                            6509 < i < 6531 or \
+                            6870 < i < 7030 or \
+                            7132 < i < 7150 or \
+                            7183 < i < 7248 or \
+                            7369 < i < 7436 or \
+                            7539 < i < 7554 or \
+                            7990 < i < 8010 or \
+                            8180 < i < 8197 or \
+                            8679 < i < 8727 or \
+                            8990 < i < 9006 or \
+                            8957 < i < 9165 or \
+                            14430 < i < 14443 or \
+                            14786 < i < 14796 or \
+                            15478 < i < 15492 or \
+                            15580 < i < 15588 or \
+                            16151 < i < 16169 or \
+                            16272 < i < 16283 or \
+                            16409 < i < 16425 or \
+                            16456 < i < 16491 or \
+                            16732 < i < 16746 or \
+                            16803 < i < 16814 or \
+                            17666 < i < 17682 or \
+                            18524 < i < 18540 or \
+                            24301 < i < 24362 or \
+                            24469 < i < 24471 or \
+                            24896 < i < 24909 or \
+                            25374 < i < 25382 or \
+                            25390 < i < 25408 or \
+                            25512 < i < 25605 \
+                         else tokens.append(0)
+        labeled_data.append(tokens)
+
+
+indoor_cirs_train_path = indoor_cirs_raw_path.parent.parent.joinpath('labeled','train',indoor_cirs_raw_path.name).with_suffix('.pkl')
+indoor_cirs_train_path.parent.mkdir(parents=True, exist_ok=True)
+with open(str(indoor_cirs_train_path),'wb') as pkl:
+    pickle.dump(labeled_data[:31325], pkl)
+
+indoor_cirs_test_path = indoor_cirs_raw_path.parent.parent.joinpath('labeled','test',indoor_cirs_raw_path.name).with_suffix('.pkl')
+indoor_cirs_test_path.parent.mkdir(parents=True, exist_ok=True)
+with open(str(indoor_cirs_test_path),'wb') as pkl:
+    pickle.dump(labeled_data[31325:], pkl)
