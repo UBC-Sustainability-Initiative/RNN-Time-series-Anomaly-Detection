@@ -82,9 +82,9 @@ gen_dataset = TimeseriesData.batchify(args,TimeseriesData.testData, 1)
 ###############################################################################
 # Build the model
 ###############################################################################
-feature_dim = TimeseriesData.trainData.size(2)
+feature_dim = TimeseriesData.trainData.size(1)
 model = model.RNNPredictor(rnn_type = args.model,
-                           enc_inp_size=feature_dim,
+                           enc_inp_size=2,
                            rnn_inp_size = args.emsize,
                            rnn_hid_size = args.nhid,
                            dec_out_size=feature_dim,
